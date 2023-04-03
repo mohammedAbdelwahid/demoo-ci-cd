@@ -1,0 +1,25 @@
+name: Continuous Integration and Deployment
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: check Out Code
+              uses: actions/checkout@v3
+
+            - name: setup .Net7 
+              uses: actions/setup-dotnet@v3
+              with:
+                 dotnet-version: '7.0.x'
+
+            - name: Restore Dependencies 
+              run: dotnet restore
+
+            - name: Build App
+              run: dotnet build -c Release --no-restore
+
